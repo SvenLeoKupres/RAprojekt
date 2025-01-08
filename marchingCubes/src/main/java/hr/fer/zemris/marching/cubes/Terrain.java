@@ -44,6 +44,8 @@ public class Terrain {
                 }
             }
         }
+
+        normalize();
     }
 
     private void generatePolygon(int[][][] codes, int x, int y, int z) {
@@ -102,10 +104,46 @@ public class Terrain {
         return newVertex;
     }
 
-    private void normalize(double[] vertex){
-        vertex[0] = (vertex[0] / width)*2 - 1;
-        vertex[1] = (vertex[1] / height)*2 - 1;
-        vertex[2] = (vertex[2] / depth)*2 - 1;
+    private void normalize(){
+        double xmin= vertices.get(0)[0];
+        double ymin= vertices.get(0)[1];
+        double zmin= vertices.get(0)[2];
+        double xmax=xmin;
+        double ymax=ymin;
+        double zmax=zmin;
+        for (var vertex:vertices){
+            double x=vertex[0], y=vertex[1], z=vertex[2];
+            if (x<xmin) xmin=x;
+            if (x>xmax) xmax=x;
+            if (y<ymin) ymin=y;
+            if (y>ymax) ymax=y;
+            if (z<zmin) zmin=z;
+            if (z>zmax) zmax=z;
+        }
+
+        double xdiff = xmax-xmin;
+        double ydiff = ymax-ymin;
+        double zdiff = zmax-zmin;
+
+        double xmid=xmin+xdiff/2;
+        double ymid=ymin+ydiff/2;
+        double zmid=zmin+zdiff/2;
+
+        double longestDiff;
+        if (xdiff>ydiff && xdiff>zdiff) longestDiff = xdiff;
+        else if (ydiff>xdiff && ydiff>zdiff) longestDiff = ydiff;
+        else longestDiff = zdiff;
+
+        //midPoint = new Vector(new double[]{xmid, ymid, zmid, 1});
+
+        for (var vertex:vertices){
+            vertex[0] = (vertex[0] - xmid) * 2 / longestDiff;
+            vertex[1] = (vertex[1] - ymid) * 2 / longestDiff;
+            vertex[2] = (vertex[2] - zmid) * 2 / longestDiff;
+
+            //System.out.printf("%f, %f\n", vertex.get(0), vertex.get(1));
+        }
+        //System.out.println();
 
     }
 
