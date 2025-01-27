@@ -1,0 +1,4 @@
+g 0 0 0
+o 1.5 1.5 1
+s 2 2 0 0 255 1 255 redoslijed: x, y, z, ka, Ia, kd, Id
+l constant
