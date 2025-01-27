@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="marchingCubes:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/marchingCubes_jar</output-path>
+    <root id="archive" name="marchingCubes.jar">
+      <element id="module-output" name="marchingCubes" />
+    </root>
+  </artifact>
+</component>
